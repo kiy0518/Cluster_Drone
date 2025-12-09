@@ -1,0 +1,21 @@
+[Unit]
+Description=Micro-ROS Agent for PX4
+After=network.target dnsmasq-px4.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=khadas
+Group=khadas
+WorkingDirectory=/home/khadas/Cluster_Drone
+Environment="HOME=/home/khadas"
+Environment="ROS_DOMAIN_ID=0"
+ExecStart=/home/khadas/Cluster_Drone/start_micro_ros_agent_wrapper.sh
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,0 +1,52 @@
+# ROS2 Build Artifacts
+build/
+install/
+log/
+*.pyc
+__pycache__/
+
+# Micro-ROS Workspace Build
+micro_ros_ws/build/
+micro_ros_ws/install/
+micro_ros_ws/log/
+
+# PX4 ROS2 Workspace Build
+px4_ros2_ws/build/
+px4_ros2_ws/install/
+px4_ros2_ws/log/
+
+# System Files
+*.swp
+*.swo
+*~
+.DS_Store
+.vscode/
+.idea/
+
+# Log Files
+*.log
+dnsmasq-px4.log
+
+# Temporary Files
+*.tmp
+*.bak
+*.backup
+
+# Python Cache
+*.py[cod]
+*$py.class
+
+# Environment Files (if any secrets)
+.env
+.env.local
+
+# Compiled Files
+*.o
+*.so
+*.a
+
+# IDE Files
+.vscode/
+.idea/
+*.code-workspace
+
