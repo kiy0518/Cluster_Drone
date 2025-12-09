@@ -10,6 +10,9 @@ scp -r Cluster_Drone user@new-vim4-ip:~/Cluster_Drone
 # 방법 B: 소스 코드만 복사 (권장, 더 안전)
 # 자세한 내용은 COPY_GUIDE.md 참고
 
+# 방법 C: GITHUB에서 다운로드
+git clone https://github.com/kiy0518/Cluster_Drone.git
+
 # 또는 USB/네트워크 드라이브로 복사
 ```
 
