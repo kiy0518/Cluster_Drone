@@ -177,12 +177,7 @@ ros-humble-laser-proc           # LiDAR 데이터 처리
 - YDLIDAR X4 (270도 스캔)
 - 전방 거리 측정에 충분
 
-**옵션 2: 3D LiDAR (고성능)**
-- Velodyne VLP-16 (16선)
-- Ouster OS1 (64선)
-- 더 정확하지만 무겁고 비쌈
-
-**옵션 3: ToF 센서 (단순)**
+**옵션 2: ToF 센서 (단순)**
 - VL53L0X (단일 거리)
 - TFMini Plus (단일 거리)
 - 가볍지만 제한적
