@@ -55,14 +55,10 @@
 #### 방법 1: 지상 센서 네트워크 (권장)
 
 **구성:**
-- 화재 감지 센서 (온도, 연기, 화염)
-- LoRa 또는 WiFi 통신
+- 열화상 영상
+- WiFi 통신
 - 중앙 모니터링 시스템
 
-**기술 스택:**
-```
-화재 감지 센서 → LoRa Gateway → 중앙 서버 → ROS2 노드
-```
 
 **ROS2 토픽:**
 ```python
@@ -112,20 +108,11 @@ fire_location_msgs/FireAlert:
 
 **열화상 카메라 옵션:**
 
-**옵션 1: FLIR Lepton (경량, 저가)**
-- 해상도: 80x60 또는 160x120
+**옵션 1: FLIR Lepton3.5 (경량, 저가)**
+- 해상도: 160x120
 - 인터페이스: SPI, I2C
 - ROS2 드라이버: `flir_lepton` 패키지
 
-**옵션 2: Seek Thermal (USB)**
-- 해상도: 320x240
-- 인터페이스: USB
-- ROS2 드라이버: `seek_thermal_ros` 패키지
-
-**옵션 3: FLIR Boson (고성능)**
-- 해상도: 640x512
-- 인터페이스: USB, Ethernet
-- ROS2 드라이버: `flir_boson` 패키지
 
 ### 3.2 ROS2 통합
 
