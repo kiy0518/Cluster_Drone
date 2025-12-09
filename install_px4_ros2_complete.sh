@@ -324,8 +324,9 @@ if [ -f ~/Cluster_Drone/px4_ros2_ws/install/setup.bash ]; then
     source ~/Cluster_Drone/px4_ros2_ws/install/setup.bash
 fi
 
-# ROS2 도메인 ID 설정
-export ROS_DOMAIN_ID=0
+# ROS2 도메인 ID 설정 (기본값: 1, 단일 기체 사용 시)
+# 군집 비행 시 각 기체별로 1, 2, 3으로 설정 필요
+export ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-1}
 
 # RMW 구현체 설정 (ARM64에서는 FastRTPS 사용)
 export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
@@ -362,7 +363,9 @@ sudo tee "$MICRO_ROS_SCRIPT" > /dev/null << SCRIPT_EOF
 # Micro-ROS Agent 실행 스크립트
 
 export HOME=$CURRENT_HOME
-export ROS_DOMAIN_ID=0
+# ROS_DOMAIN_ID는 systemd 서비스에서 설정됨 (기본값: 1, 단일 기체 사용 시)
+# 군집 비행 시 각 기체별로 1, 2, 3으로 설정 필요
+export ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-1}  # 기본값 1 (단일 기체)
 export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 
 # Source ROS2 environment

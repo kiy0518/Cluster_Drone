@@ -186,31 +186,33 @@ class SwarmController(Node):
 ### 구성 1: 도메인 분리 (간단, 권장)
 
 ```
-기체 A: vim4-A (eth0: 10.0.0.1) → PX4-A (10.0.0.11) → ROS_DOMAIN_ID=0
-기체 B: vim4-B (eth0: 10.0.0.1) → PX4-B (10.0.0.21) → ROS_DOMAIN_ID=1
-기체 C: vim4-C (eth0: 10.0.0.1) → PX4-C (10.0.0.31) → ROS_DOMAIN_ID=2
+기체 A: vim4-A (eth0: 10.0.0.1) → PX4-A (10.0.0.11) → ROS_DOMAIN_ID=1 (MAV_SYS_ID=1과 일치)
+기체 B: vim4-B (eth0: 10.0.0.1) → PX4-B (10.0.0.21) → ROS_DOMAIN_ID=2 (MAV_SYS_ID=2와 일치)
+기체 C: vim4-C (eth0: 10.0.0.1) → PX4-C (10.0.0.31) → ROS_DOMAIN_ID=3 (MAV_SYS_ID=3과 일치)
 
 중앙 제어: 모든 도메인을 구독하는 노드
 ```
+
+**중요:** `ROS_DOMAIN_ID`는 `MAV_SYS_ID`와 **일치**시켜 혼란을 방지합니다.
 
 **설정 스크립트 예시:**
 
 각 vim4 보드에서:
 ```bash
-# vim4-A
-export ROS_DOMAIN_ID=0
+# vim4-A (기체 A)
 sudo systemctl edit micro-ros-agent
-# Environment="ROS_DOMAIN_ID=0" 추가
+# [Service]
+# Environment="ROS_DOMAIN_ID=1"  # MAV_SYS_ID=1과 일치
 
-# vim4-B
-export ROS_DOMAIN_ID=1
+# vim4-B (기체 B)
 sudo systemctl edit micro-ros-agent
-# Environment="ROS_DOMAIN_ID=1" 추가
+# [Service]
+# Environment="ROS_DOMAIN_ID=2"  # MAV_SYS_ID=2와 일치
 
-# vim4-C
-export ROS_DOMAIN_ID=2
+# vim4-C (기체 C)
 sudo systemctl edit micro-ros-agent
-# Environment="ROS_DOMAIN_ID=2" 추가
+# [Service]
+# Environment="ROS_DOMAIN_ID=3"  # MAV_SYS_ID=3과 일치
 ```
 
 ---
@@ -254,20 +256,20 @@ EOF
 
 ### 3. Micro-ROS Agent 서비스 설정
 
-**vim4-A:**
+**vim4-A (기체 A):**
 ```bash
 sudo systemctl edit micro-ros-agent
 # 다음 내용 추가:
 [Service]
-Environment="ROS_DOMAIN_ID=0"
+Environment="ROS_DOMAIN_ID=1"  # MAV_SYS_ID=1과 일치
 ```
 
-**vim4-B:**
+**vim4-B (기체 B):**
 ```bash
 sudo systemctl edit micro-ros-agent
 # 다음 내용 추가:
 [Service]
-Environment="ROS_DOMAIN_ID=1"
+Environment="ROS_DOMAIN_ID=2"  # MAV_SYS_ID=2와 일치
 ```
 
 ### 4. 중앙 제어 노드 (모든 기체 데이터 수신)
@@ -283,9 +285,9 @@ class SwarmController(Node):
     def __init__(self):
         super().__init__('swarm_controller')
         
-        # 도메인 0 (기체 A)
-        os.environ['ROS_DOMAIN_ID'] = '0'
-        # 도메인 0의 토픽 구독 (별도 프로세스 필요)
+        # 도메인 1 (기체 A)
+        os.environ['ROS_DOMAIN_ID'] = '1'
+        # 도메인 1의 토픽 구독 (별도 프로세스 필요)
         
     def drone_a_callback(self, msg):
         self.get_logger().info(f'Drone A: {msg}')
@@ -303,12 +305,16 @@ class SwarmController(Node):
 ### 각 기체별 토픽 확인
 
 ```bash
-# vim4-A에서 (도메인 0)
-export ROS_DOMAIN_ID=0
+# vim4-A에서 (도메인 1, 기체 A)
+export ROS_DOMAIN_ID=1
 ros2 topic list
 
-# vim4-B에서 (도메인 1)
-export ROS_DOMAIN_ID=1
+# vim4-B에서 (도메인 2, 기체 B)
+export ROS_DOMAIN_ID=2
+ros2 topic list
+
+# vim4-C에서 (도메인 3, 기체 C)
+export ROS_DOMAIN_ID=3
 ros2 topic list
 
 # 중앙 제어 노드에서
@@ -341,7 +347,7 @@ ip neigh show dev eth0
 
 **핵심:**
 - ✅ 각 PX4는 고유 IP (10.0.0.11, 10.0.0.21, 10.0.0.31...)
-- ✅ 각 SBC는 다른 ROS_DOMAIN_ID (1, 2, 3...)
+- ✅ 각 SBC는 다른 ROS_DOMAIN_ID (1, 2, 3, MAV_SYS_ID와 일치)
 - ✅ MAV_SYS_ID와 ROS_DOMAIN_ID를 일치시켜 혼란 방지
 - ✅ 중앙 제어 노드는 모든 도메인을 구독
 

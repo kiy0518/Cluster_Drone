@@ -78,14 +78,16 @@ wlan0 (192.168.100.x/24)
 
 ```bash
 # vim4-B (Micro-ROS Agent 실행 중)
-export ROS_DOMAIN_ID=0
+export ROS_DOMAIN_ID=1  # 기본값 (단일 기체 사용 시)
 
 # vim4-A (토픽 수신)
-export ROS_DOMAIN_ID=0
+export ROS_DOMAIN_ID=1  # 같은 도메인 ID 사용 (같은 WiFi 네트워크)
 
 # 이제 vim4-A에서도 토픽을 볼 수 있음
 ros2 topic list
 ```
+
+**참고:** 단일 기체 사용 시 기본값은 1입니다. 군집 비행 시 각 기체별로 1, 2, 3을 사용합니다.
 
 ## 실제 확인 방법
 

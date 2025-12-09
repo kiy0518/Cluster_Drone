@@ -3,7 +3,9 @@
 # This script sets up the environment and starts the agent
 
 export HOME=/home/khadas
-export ROS_DOMAIN_ID=0
+# ROS_DOMAIN_ID는 systemd 서비스에서 설정됨 (기본값: 1, 단일 기체 사용 시)
+# 군집 비행 시 각 기체별로 1, 2, 3으로 설정 필요
+export ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-1}  # 기본값 1 (단일 기체)
 export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 
 # Source ROS2 environment

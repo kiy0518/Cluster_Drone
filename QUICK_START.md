@@ -54,7 +54,7 @@ systemctl status micro-ros-agent
 QGroundControl 또는 PX4 콘솔에서:
 - `UXRCE_DDS_AG_IP` = `167772161` (10.0.0.1)
 - `UXRCE_DDS_PRT` = `8888`
-- `UXRCE_DDS_DOM_ID` = `0`
+- `UXRCE_DDS_DOM_ID` = `1` (단일 기체 기본값, 군집 비행 시 기체별로 1, 2, 3)
 
 **IP 주소 변환:**
 ```bash

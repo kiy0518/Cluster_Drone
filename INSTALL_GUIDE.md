@@ -1,6 +1,8 @@
-# 설치 가이드
+# 설치 가이드 (다른 VIM4에 복사)
 
-다른 VIM4에 이 프로젝트를 설치하는 방법
+다른 VIM4에 이 프로젝트를 복사하고 설치하는 방법
+
+**참고:** 새로 설치한 Ubuntu VIM4에서 처음 설치하는 경우는 [INSTALLATION.md](INSTALLATION.md)를 참고하세요.
 
 ## 1. 파일 복사
 
@@ -85,7 +87,7 @@ QGroundControl 또는 PX4 콘솔에서 다음 파라미터 설정:
 ```
 UXRCE_DDS_AG_IP = 167772161  (10.0.0.1)
 UXRCE_DDS_PRT = 8888
-UXRCE_DDS_DOM_ID = 0
+UXRCE_DDS_DOM_ID = 1  (단일 기체 기본값, 군집 비행 시 기체별로 1, 2, 3)
 UXRCE_DDS_CFG = Ethernet
 ```
 

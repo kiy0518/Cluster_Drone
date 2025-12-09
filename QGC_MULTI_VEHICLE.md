@@ -125,22 +125,22 @@ ROS2를 통해 모든 기체의 데이터를 통합하고 QGC에 전달할 수 �
 각 기체별로 MAVROS 노드 실행:
 
 ```bash
-# 기체 A (도메인 0)
-export ROS_DOMAIN_ID=0
+# 기체 A (도메인 1, MAV_SYS_ID=1과 일치)
+export ROS_DOMAIN_ID=1
 ros2 run mavros mavros_node \
     --ros-args \
     -p fcu_url:=udp://:14550@10.0.0.11:14550 \
     -p system_id:=1
 
-# 기체 B (도메인 1)
-export ROS_DOMAIN_ID=1
+# 기체 B (도메인 2, MAV_SYS_ID=2와 일치)
+export ROS_DOMAIN_ID=2
 ros2 run mavros mavros_node \
     --ros-args \
     -p fcu_url:=udp://:14551@10.0.0.21:14550 \
     -p system_id:=2
 
-# 기체 C (도메인 2)
-export ROS_DOMAIN_ID=2
+# 기체 C (도메인 3, MAV_SYS_ID=3과 일치)
+export ROS_DOMAIN_ID=3
 ros2 run mavros mavros_node \
     --ros-args \
     -p fcu_url:=udp://:14552@10.0.0.31:14550 \
@@ -249,21 +249,21 @@ class ROS2ToMAVLinkBridge(Node):
 **기체 A:**
 - MAV_SYS_ID = 1
 - IP: 10.0.0.11
-- ROS_DOMAIN_ID = 0
+- ROS_DOMAIN_ID = 1 (MAV_SYS_ID와 일치)
 - MAVLink 포트: 14550
 - 비디오 포트: 5600
 
 **기체 B:**
 - MAV_SYS_ID = 2
 - IP: 10.0.0.21
-- ROS_DOMAIN_ID = 1
+- ROS_DOMAIN_ID = 2 (MAV_SYS_ID와 일치)
 - MAVLink 포트: 14551
 - 비디오 포트: 5601
 
 **기체 C:**
 - MAV_SYS_ID = 3
 - IP: 10.0.0.31
-- ROS_DOMAIN_ID = 2
+- ROS_DOMAIN_ID = 3 (MAV_SYS_ID와 일치)
 - MAVLink 포트: 14552
 - 비디오 포트: 5602
 

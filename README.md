@@ -51,7 +51,7 @@ QGroundControl 또는 PX4 콘솔에서 다음 파라미터 설정:
 ```
 UXRCE_DDS_AG_IP = 167772161  (10.0.0.1의 int32 값)
 UXRCE_DDS_PRT = 8888
-UXRCE_DDS_DOM_ID = 0
+UXRCE_DDS_DOM_ID = 1  (단일 기체 기본값, 군집 비행 시 기체별로 1, 2, 3)
 UXRCE_DDS_CFG = Ethernet
 ```
 
