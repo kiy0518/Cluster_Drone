@@ -432,7 +432,7 @@ class FireTargetingNode(Node):
 ### 4.1 하드웨어 구성
 
 **소화탄 발사 장치:**
-- 서보 모터 또는 솔레노이드 밸브
+- 솔레노이드 밸브
 - 발사 제어 보드 (Arduino 또는 Pixhawk AUX 출력)
 - 안전 장치 (격발 전 안전 확인)
 
